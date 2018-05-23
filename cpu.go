@@ -58,6 +58,8 @@ func (c *CPU) Execute() {
 			//clear screen
 		case 0x00EE:
 			//return from subrouting
+		default:
+			// ignore RCA1802 functions
 		}
 	case 0x1000:
 		//jump to address NNN (0x1NNN)
@@ -66,9 +68,9 @@ func (c *CPU) Execute() {
 	case 0x3000:
 		// skip next instruction if V[X]==NN (0x3XNN)
 	case 0x4000:
-		// skip next instruction if V[X]!=NN (0x3XNN)
+		// skip next instruction if V[X]!=NN (0x4XNN)
 	case 0x5000:
-		// skip next instruction if V[X]==V[Y] (0x3XY0)
+		// skip next instruction if V[X]==V[Y] (0x5XY0)
 	case 0x6000:
 		//set V[X] to NN (0x6XNN)
 	case 0x7000:
