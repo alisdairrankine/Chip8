@@ -49,6 +49,10 @@ func NewCPU(timer <-chan time.Time) *CPU {
 func (c *CPU) Run() {
 	fmt.Println("Running Chip8")
 	fmt.Println("Starting...")
+	if c.Clock == nil {
+		fmt.Println("No Clock")
+		return
+	}
 	for {
 		select {
 		case <-c.Clock:
@@ -61,21 +65,7 @@ func (c *CPU) Run() {
 	}
 }
 
-func (c *CPU) Execute() {
-
-	if c.PC > 4083 {
-		c.Finished = true
-		return
-	}
-
-	if c.DT > 0 {
-		c.DT -= 1
-	}
-	if c.ST > 0 {
-		c.ST -= 1
-	}
-
-	opCode := uint16(c.Memory[c.PC])<<8 | uint16(c.Memory[c.PC+1])
+func (c *CPU) ExecuteOp(opCode uint16) {
 	switch opCode & 0xF000 {
 	case 0x0000:
 		switch opCode {
@@ -347,6 +337,24 @@ func (c *CPU) Execute() {
 			c.PC += WordLength
 		}
 	}
+}
+
+func (c *CPU) Execute() {
+
+	if c.PC > 4083 {
+		c.Finished = true
+		return
+	}
+
+	if c.DT > 0 {
+		c.DT -= 1
+	}
+	if c.ST > 0 {
+		c.ST -= 1
+	}
+
+	opCode := uint16(c.Memory[c.PC])<<8 | uint16(c.Memory[c.PC+1])
+	c.ExecuteOp(opCode)
 
 	fmt.Printf("\n[%s] PC: %#x SP: %#x\n", disassemble(opCode), c.PC, c.SP)
 	for i, data := range c.V {
