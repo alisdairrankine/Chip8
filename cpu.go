@@ -6,8 +6,10 @@ import (
 	"time"
 )
 
+// Wordlength is the number of bytes for a processor word
 const WordLength = 2
 
+// CPU is a virtual machine
 type CPU struct {
 
 	//registers
@@ -70,6 +72,8 @@ func (c *CPU) ExecuteOp(opCode uint16) {
 	case 0x0000:
 		switch opCode {
 		case 0x00E0:
+			empty := [256]byte{}
+			c.LoadData(0xF00, empty[:])
 			//clear screen
 			c.PC += WordLength
 		case 0x00EE:
@@ -174,7 +178,7 @@ func (c *CPU) ExecuteOp(opCode uint16) {
 			y := (opCode & 0x00F0) >> 4
 			vy := c.V[y]
 			c.V[x] = vx + vy
-			if vx+vy > 0xFF {
+			if int(vx)+int(vy) > 0xFF {
 				c.V[0xF] |= 0x01
 			} else {
 				c.V[0xF] &= 0xFE
@@ -187,7 +191,7 @@ func (c *CPU) ExecuteOp(opCode uint16) {
 			y := (opCode & 0x00F0) >> 4
 			vy := c.V[y]
 			c.V[x] = vx - vy
-			if vx < vy {
+			if vx > vy {
 				c.V[0xF] |= 0x01
 			} else {
 				c.V[0xF] &= 0xFE

@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-
+	run()
+	return
 	if len(os.Args) > 1 {
 		file, err := os.Open(os.Args[1])
 		if err == nil {
@@ -27,7 +28,7 @@ func main() {
 }
 
 func run() {
-	clock := time.Tick(time.Second / time.Duration(10))
+	clock := time.Tick(time.Second / time.Duration(60))
 	cpu := chip8.NewCPU(clock)
 
 	//Load BootLoader

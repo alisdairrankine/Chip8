@@ -67,12 +67,33 @@ func TestMaths(t *testing.T) {
 
 	op = uint16(0x8014)
 	cpu.V[0] = 0xFF
-	cpu.V[1] = 0xFF
+	cpu.V[1] = 0x02
 	cpu.ExecuteOp(op)
-	if cpu.V[0] != 0x00 || (cpu.V[0xF]&0x01) != 1 {
-		t.Errorf("V[0] expected: %#x, actual: %#x", 0x00, cpu.V[0])
-		t.Errorf("v[F] expected: %#x, actual: %#x", 0x01, cpu.V[0xF])
+	if cpu.V[0] != 0x01 || (cpu.V[0xF]&0x01) != 1 {
+		t.Log("0x8014 failed")
 		t.Fail()
 	}
 
+	op = uint16(0x8015)
+	cpu.V[0] = 0xFF
+	cpu.V[1] = 0x02
+	cpu.ExecuteOp(op)
+	if cpu.V[0] != 0xFD || (cpu.V[0xF]&0x01) != 0x01 {
+		t.Log("0x8015(3) failed")
+		t.Fail()
+	}
+
+	op = uint16(0x8015)
+	cpu.V[0] = 0x01
+	cpu.V[1] = 0x02
+	cpu.ExecuteOp(op)
+	if cpu.V[0] != 0x00 || (cpu.V[0xF]&0x01) != 0x00 {
+		t.Log("0x8015(2) failed")
+		t.Fail()
+	}
+
+}
+
+func TestGraphics(t *testing.T) {
+	t.Skip()
 }
