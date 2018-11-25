@@ -2,3 +2,5 @@ github.com/alisdairrankine/Chip8 v0.0.0-20180603161800-41f34f5f8f4a h1:Ni3yMl8s9
 github.com/alisdairrankine/Chip8 v0.0.0-20180603161800-41f34f5f8f4a/go.mod h1:Hmv9IU7BMgxFMCpBQZsKdmv/TURz5ACMXyh6KPfN/Ks=
 github.com/alisdairrankine/chip8 v0.0.0-20180603161800-41f34f5f8f4a h1:8vs3VvLPwYQZ3gB/ClpvDf91/8obmmCNYMTdV7JOtfk=
 github.com/alisdairrankine/chip8 v0.0.0-20180603161800-41f34f5f8f4a/go.mod h1:PZ1DAGcHLmIM3+8rROaSIhUX7amZ029dzAH+tlpZQ68=
+github.com/veandco/go-sdl2 v0.3.0 h1:IWYkHMp8V3v37NsKjszln8FFnX2+ab0538J371t+rss=
+github.com/veandco/go-sdl2 v0.3.0/go.mod h1:FB+kTpX9YTE+urhYiClnRzpOXbiWgaU3+5F2AB78DPg=
