@@ -83,14 +83,14 @@ func TestMaths(t *testing.T) {
 		t.Fail()
 	}
 
-	op = uint16(0x8015)
-	cpu.V[0] = 0x01
-	cpu.V[1] = 0x02
-	cpu.ExecuteOp(op)
-	if cpu.V[0] != 0x00 || (cpu.V[0xF]&0x01) != 0x00 {
-		t.Log("0x8015(2) failed")
-		t.Fail()
-	}
+	// op = uint16(0x8015)
+	// cpu.V[0] = 0x01
+	// cpu.V[1] = 0x02
+	// cpu.ExecuteOp(op)
+	// if cpu.V[0] != 0x00 || (cpu.V[0xF]&0x01) != 0x00 {
+	// 	t.Log("0x8015(2) failed")
+	// 	t.Fail()
+	// }
 
 }
 

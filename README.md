@@ -8,6 +8,7 @@ Graphics & audio still not implemented.
 ## Tests
 
 [![CircleCI](https://circleci.com/gh/alisdairrankine/chip8.svg?style=svg)](https://circleci.com/gh/alisdairrankine/chip8)
+[![codecov](https://codecov.io/gh/alisdairrankine/chip8/branch/master/graph/badge.svg)](https://codecov.io/gh/alisdairrankine/chip8)
 
 
 ## Opcodes
