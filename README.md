@@ -5,6 +5,11 @@ Chip8 emulator. May be upgraded with other features.
 Graphics & audio still not implemented.
 
 
+## Tests
+
+[![CircleCI](https://circleci.com/gh/alisdairrankine/chip8.svg?style=svg)](https://circleci.com/gh/alisdairrankine/chip8)
+
+
 ## Opcodes
 Taken from Wikipedia
 
