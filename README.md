@@ -27,7 +27,7 @@ Taken from Wikipedia
 |6XNN|Const|Vx = NN|Sets VX to NN.|
 |7XNN|Const|Vx += NN|Adds NN to VX. (Carry flag is not changed)|
 |8XY0|Assign|Vx=Vy|Sets VX to the value of VY.|
-|8XY1|BitOp|Vx=Vx|Vy|Sets VX to VX or VY. (Bitwise OR operation)|
+|8XY1|BitOp|Vx=Vx\|Vy|Sets VX to VX or VY. (Bitwise OR operation)|
 |8XY2|BitOp|Vx=Vx&Vy|Sets VX to VX and VY.  (Bitwise AND operation)|
 |8XY3|BitOp|Vx=Vx^Vy|Sets VX to VX xor VY.|
 |8XY4|Math|Vx += Vy|Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't.|

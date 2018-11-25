@@ -190,8 +190,8 @@ func (c *CPU) ExecuteOp(opCode uint16) {
 			vx := c.V[x]
 			y := (opCode & 0x00F0) >> 4
 			vy := c.V[y]
-			c.V[x] = vx - vy
 			if vx > vy {
+				c.V[x] = vx - vy
 				c.V[0xF] |= 0x01
 			} else {
 				c.V[0xF] &= 0xFE
@@ -213,8 +213,8 @@ func (c *CPU) ExecuteOp(opCode uint16) {
 			vx := c.V[x]
 			y := (opCode & 0x00F0) >> 4
 			vy := c.V[y]
-			c.V[x] = vy - vx
-			if vy < vx {
+			if vx < vy {
+				c.V[x] = vy - vx
 				c.V[0xF] |= 0x01
 			} else {
 				c.V[0xF] &= 0xFE

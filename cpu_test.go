@@ -131,22 +131,35 @@ func TestOpCode8XY5(t *testing.T) {
 		t.Fail()
 	}
 
-	// op = uint16(0x8015)
-	// cpu.V[0] = 0x01
-	// cpu.V[1] = 0x02
-	// cpu.ExecuteOp(op)
-	// if cpu.V[0] != 0x00 || (cpu.V[0xF]&0x01) != 0x00 {
-	// 	t.Log("0x8015(2) failed")
-	// 	t.Fail()
-	// }
+	op = uint16(0x8015)
+	cpu.V[0] = 0x01
+	cpu.V[1] = 0x02
+	cpu.ExecuteOp(op)
+	if cpu.V[0] != 0x01 || (cpu.V[0xF]&0x01) != 0x00 {
+		t.Fail()
+	}
 }
 func TestOpCode8XY6(t *testing.T) {
 	//cpu := chip8.NewCPU(nil)
 	t.Skip()
 }
 func TestOpCode8XY7(t *testing.T) {
-	//cpu := chip8.NewCPU(nil)
-	t.Skip()
+	cpu := chip8.NewCPU(nil)
+	op := uint16(0x8017)
+	cpu.V[0] = 0x02
+	cpu.V[1] = 0xFF
+	cpu.ExecuteOp(op)
+	if cpu.V[0] != 0xFD || (cpu.V[0xF]&0x01) != 0x01 {
+		t.Fail()
+	}
+
+	op = uint16(0x8017)
+	cpu.V[0] = 0x02
+	cpu.V[1] = 0x01
+	cpu.ExecuteOp(op)
+	if cpu.V[0] != 0x02 || (cpu.V[0xF]&0x01) != 0x00 {
+		t.Fail()
+	}
 }
 func TestOpCode8XYE(t *testing.T) {
 	//cpu := chip8.NewCPU(nil)
