@@ -23,8 +23,63 @@ func TestOpCode1NNN(t *testing.T) {
 	t.Skip()
 }
 func TestOpCode2NNN(t *testing.T) {
-	//cpu := chip8.NewCPU(nil)
-	t.Skip()
+	cpu := chip8.NewCPU(nil)
+	program := []byte{
+		0x60, 0x0f, //0x200 - set v0 to 15
+		0x61, 0x10, //0x202 - set v1 to 16
+		0x22, 0x14, //0x204 - call sub at 0x216
+		0x62, 0xff, //0x206 - set v2 to 255
+		0x00, 0x00, //0x208
+		0x00, 0x00, //0x20a
+		0x00, 0x00, //0x20c
+		0x00, 0x00, //0x20e
+		0x00, 0x00, //0x210
+		0x00, 0x00, //0x212
+		0x63, 0xf0, //0x214
+		0x00, 0xee, //0x216
+
+	}
+	cpu.LoadData(0x200, program)
+	cpu.Execute()
+	if cpu.V[0] != 0x0f {
+		t.Log("v0 value not expected")
+		t.Fail()
+	}
+	if cpu.PC != 0x202 {
+		t.Log("pc value not expected")
+		t.Fail()
+
+	}
+	cpu.Execute()
+	if cpu.V[1] != 0x10 {
+		t.Log("v1 value not expected")
+		t.Fail()
+	}
+	if cpu.PC != 0x204 {
+		t.Log("pc value not expected")
+		t.Fail()
+
+	}
+	cpu.Execute()
+	if cpu.PC != 0x214 {
+		t.Log("pc value not expected")
+		t.Fail()
+	}
+	cpu.Execute()
+	if cpu.V[3] != 0xf0 {
+		t.Log("v3 value not expected")
+		t.Fail()
+	}
+	if cpu.PC != 0x216 {
+		t.Log("pc value not expected")
+		t.Fail()
+	}
+	cpu.Execute()
+	if cpu.PC != 0x206 {
+		t.Log("pc value not expected")
+		t.Fail()
+	}
+
 }
 func TestOpCode3XNN(t *testing.T) {
 	//cpu := chip8.NewCPU(nil)

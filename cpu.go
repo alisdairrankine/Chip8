@@ -48,7 +48,7 @@ func NewCPU(timer <-chan time.Time) *CPU {
 	}
 }
 
-func (c *CPU) Run() {
+func (c *CPU) Run(display Display) {
 	fmt.Println("Running Chip8")
 	fmt.Println("Starting...")
 	if c.Clock == nil {
@@ -59,6 +59,9 @@ func (c *CPU) Run() {
 		select {
 		case <-c.Clock:
 			c.Execute()
+			if display != nil {
+				display.Draw(c.Memory[0xF00:], PIXELS_MONOCHROME) //todo get vram
+			}
 			if c.Finished {
 				fmt.Println("Finished")
 				return
@@ -261,10 +264,34 @@ func (c *CPU) ExecuteOp(opCode uint16) {
 		c.V[x] = imm & rnd[0]
 		c.PC += WordLength
 	case 0xD000:
+		//DXYN
 		//draw sprite at position (V[X],V[Y]) with width 8, heigh N.
 		//sprite bits located at Memory[I] in rows of 8 (0xDXYN)
 		//V[F] is set to 1 if pixels are flipped from 1 to 0, otherwise 0
 		//TODO
+		height := opCode & 0x000F
+		x := (opCode & 0x0F00) >> 8
+		y := (opCode & 0x00F0) >> 4
+
+		sprite := c.Memory[c.I:height]
+
+		vramLocation := c.Memory[0xf00+((y*32)+x) : len(sprite)]
+
+		collide := false
+
+		for i := 0; i < len(sprite); i++ {
+			if sprite[i]^vramLocation[i] > 0 {
+				collide = true
+				break
+			}
+		}
+
+		c.LoadData(0xf00+((y*32)+x), sprite)
+
+		if collide {
+			c.V[0xF] |= 0x01
+		}
+
 		c.PC += WordLength
 	case 0xE000:
 		switch opCode & 0x00FF {

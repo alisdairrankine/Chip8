@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"time"
 
@@ -28,6 +29,7 @@ func main() {
 }
 
 func run() {
+
 	clock := time.Tick(time.Second / time.Duration(60))
 	cpu := chip8.NewCPU(clock)
 
@@ -36,7 +38,14 @@ func run() {
 
 	//Load font
 	cpu.LoadData(0, chip8.DefaultFont)
-	cpu.Run()
+
+	//create display
+	display, err := chip8.NewDisplay()
+	if err != nil {
+		log.Fatalf("Could not open display: %s", err)
+	}
+
+	cpu.Run(display)
 }
 
 var Program = []byte{
